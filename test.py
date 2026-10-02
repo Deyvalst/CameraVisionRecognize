@@ -1,6 +1,6 @@
 import socket
 
-UDP_IP = "2.133.174.194"
+UDP_IP = "178.88.10.91"
 UDP_PORT = 36273
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 # Устанавливаем таймаут, чтобы клиент не завис навсегда, если пакет потеряется
