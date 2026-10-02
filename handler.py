@@ -1,4 +1,3 @@
-
 import socket
 import datetime
 # import io
@@ -6,7 +5,7 @@ import datetime
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 65536)
 # server_socket.bind(("100.115.41.45", 2222))
-server_socket.bind(("127.0.0.1", 36273))
+server_socket.bind(("192.168.88.248", 36273))
 
 print(f"server launched")
 
