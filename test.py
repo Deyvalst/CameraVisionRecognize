@@ -1,10 +1,38 @@
 import socket
+import sys
+import ctypes
+UDP_IP = input()
+UDP_PORT = 37263
 
-UDP_IP = "178.88.10.91"
-UDP_PORT = 36273
+if UDP_IP == "local":
+    UDP_IP = "0.0.0.0"
+if UDP_IP == "host":
+    UDP_IP = "100.115.41.45"
+if UDP_IP == "user":
+    UDP_IP = "178.88.10.91"
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 # Устанавливаем таймаут, чтобы клиент не завис навсегда, если пакет потеряется
 client_socket.settimeout(5.0) 
+handle = client_socket.fileno()
+if True:
+    # Константы для Windows API
+    SIO_UDP_CONNRESET = 0x9800000C
+    dwBytesReturned = ctypes.c_ulong()
+    bNewBehavior = ctypes.c_bool(False)
+    
+    # Вызываем WSAIoctl напрямую из системной библиотеки WS2_32.dll
+    windll = ctypes.windll.ws2_32
+    result = windll.WSAIoctl(
+        handle, 
+        SIO_UDP_CONNRESET, 
+        ctypes.byref(bNewBehavior), 
+        ctypes.sizeof(bNewBehavior), 
+        None, 
+        0, 
+        ctypes.byref(dwBytesReturned), 
+        None, 
+        None
+    )
 
 # Читаем локальное изображение (или кадр с веб-камеры)
 # image = cv2.imread("test_image.jpg")
